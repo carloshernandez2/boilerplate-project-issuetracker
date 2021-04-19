@@ -2,6 +2,7 @@
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
+// eslint-disable-next-line no-unused-vars
 const expect      = require('chai').expect;
 const cors        = require('cors');
 require('dotenv').config();
@@ -9,6 +10,7 @@ require('dotenv').config();
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
+const Mongoose = require("mongoose");
 
 let app = express();
 
@@ -16,7 +18,11 @@ app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
 
-
+Mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,7 +46,7 @@ fccTestingRoutes(app);
 apiRoutes(app);  
     
 //404 Not Found Middleware
-app.use(function(req, res, next) {
+app.use(function(req, res) {
   res.status(404)
     .type('text')
     .send('Not Found');
