@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const issueSchema = new mongoose.Schema(
   {
@@ -8,12 +8,12 @@ const issueSchema = new mongoose.Schema(
     assigned_to: { type: String },
     open: { type: Boolean, required: true, default: true },
     status_text: { type: String },
-    project: { type: String, required: true, default: "apitest" }
+    project: { type: String, required: true, default: "apitest" },
   },
   {
-    timestamps: true
+    timestamps: { createdAt: "created_on", updatedAt: "updated_on" },
   }
-)
-const Issue = mongoose.model('Issue', issueSchema)
+);
+const Issue = mongoose.model("Issue", issueSchema);
 
-module.exports = Issue
+module.exports = Issue;
