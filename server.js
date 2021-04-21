@@ -1,7 +1,6 @@
 'use strict';
 
 const express     = require('express');
-const bodyParser  = require('body-parser');
 // eslint-disable-next-line no-unused-vars
 const expect      = require('chai').expect;
 const cors        = require('cors');
@@ -24,8 +23,8 @@ Mongoose.connect(process.env.DB, {
   useCreateIndex: true,
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //Sample front-end
 app.route('/:project/')
